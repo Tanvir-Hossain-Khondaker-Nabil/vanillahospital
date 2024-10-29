@@ -1,0 +1,46 @@
+body{
+    margin:0;
+    top:0;
+    font-family: "Calibri";
+}
+.logo{
+    margin-top:25px;
+}
+.logo img{
+    width: 185px;
+    height: 125px;
+}
+.input-width{
+    width: 100%;
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid gainsboro;
+}
+.container-fluid{
+    background: linear-gradient(to top, #003399 0%, #33cccc 100%);
+    /*background-color: darkslateblue;*/
+    /*background-size: cover;*/
+}
+.card-body{
+    background-color: white;
+    padding-bottom: 63px!important;
+
+}
+.btn{
+    width: 100%;
+}
+.form-group p{
+    text-align: center;
+}
+@media screen and (max-width: 575px){
+    /*.input-width,.btn {*/
+    /*    width: 92%;*/
+    /*}*/
+/*.forgot{*/
+/*    margin-right: 30px!important;*/
+/*}*/
+.text-right{
+    margin-top: -32px!important;
+}
+    }
+

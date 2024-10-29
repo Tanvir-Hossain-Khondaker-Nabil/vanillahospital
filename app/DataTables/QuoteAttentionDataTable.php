@@ -1,0 +1,90 @@
+<?php
+
+namespace App\DataTables;
+
+use App\Models\QuotationTerm;
+use App\Models\QuoteAttention;
+use Yajra\DataTables\Services\DataTable;
+
+class QuoteAttentionDataTable extends DataTable
+{
+    /**
+     * Build DataTable class.
+     *
+     * @param mixed $query Results from query() method.
+     * @return \Yajra\DataTables\DataTableAbstract
+     */
+    public function  ajax()
+    {
+        return datatables()
+            ->eloquent($this->query())
+            ->editColumn('quotationer_id', function ($modal){
+                return $modal->quotationer_id > 0 ? $modal->quoteCompany->company_name : "";
+            })
+            ->editColumn('status', function ($modal){
+                return $modal->status == 0 ? "Inactive" : "Active";
+            })
+            ->addColumn('action', function($modal) {
+                return view('common._action-button', ['model' => $modal, 'route' => 'member.quote_attentions']);
+            })
+            ->make(true);
+    }
+
+    /**
+     * Get query source of dataTable.
+     *
+     * @param \App\Models\Category $model
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function query()
+    {
+        $query = QuoteAttention::latest()->with('quoteCompany');
+
+        return $this->applyScopes($query);
+    }
+
+    /**
+     * Optional method if you want to use html builder.
+     *
+     * @return \Yajra\DataTables\Html\Builder
+     */
+    public function html()
+    {
+        return $this->builder()
+                    ->columns($this->getColumns())
+                    ->minifiedAjax()
+                    ->addAction(['width' => '80px']);
+    }
+
+    /**
+     * Get columns.
+     *
+     * @return array
+     */
+    protected function getColumns()
+    {
+        return [
+            ['name' => 'id', 'data' => 'id',  'title' => "ID" ],
+            'name',
+            'designation',
+            'department',
+            [
+                'name' => 'quotationer_id',
+                'data' => 'quotationer_id',
+                'title' => "Quote Company"
+            ],
+            'contact',
+            'status'
+        ];
+    }
+
+    /**
+     * Get filename for export.
+     *
+     * @return string
+     */
+    protected function filename()
+    {
+        return 'QuotationTerm_' . date('YmdHis');
+    }
+}

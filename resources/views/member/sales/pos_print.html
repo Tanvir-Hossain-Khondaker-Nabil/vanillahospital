@@ -1,0 +1,377 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice</title>
+    <style type="text/css">
+        #invoice-POS {
+            box-shadow: 0 0 1in -0.25in rgb(227, 215, 215);
+            padding: 2mm;
+            margin: 0 auto;
+            width: 100%;
+            background: #fff;
+        }
+
+        #invoice-POS h1 {
+            font-size: 1.5em;
+            color: #000;
+        }
+        #invoice-POS h2 {
+            font-size: 14px;
+            text-align: center;
+        }
+        #invoice-POS h3 {
+            font-size: 1.2em;
+            font-weight: 300;
+            line-height: 2em;
+        }
+        #invoice-POS p {
+            font-size: 0.7em;
+            color: #000;
+            line-height: 1.2em;
+        }
+        #invoice-POS #top,
+        #invoice-POS #mid,
+        #invoice-POS #bot {
+            /* Targets all id with 'col-' */
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+        }
+
+        #invoice-POS #top .logo {
+            height: 60px;
+            width: 60px;
+            background: url('') no-repeat;
+            background-size: 60px 60px;
+        }
+        #invoice-POS .clientlogo {
+            float: left;
+            height: 60px;
+            width: 60px;
+            background: url(http://michaeltruong.ca/images/client.jpg) no-repeat;
+            background-size: 60px 60px;
+            border-radius: 50px;
+        }
+        #invoice-POS .info {
+            display: block;
+            margin-left: 0;
+            margin-bottom: 10px;
+        }
+        #invoice-POS .title {
+            float: right;
+        }
+        #invoice-POS .title p {
+            text-align: right;
+        }
+        #invoice-POS table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        #invoice-POS .tabletitle {
+            font-size: 0.5em;
+            background: #bbb;
+        }
+        #invoice-POS .service {
+            border-bottom: 1px solid #eee;
+        }
+        #invoice-POS .item {
+
+        }
+        #invoice-POS .itemtext {
+            font-size:14px;
+        }
+        #invoice-POS #legalcopy {
+            margin-top: 5mm;
+        }
+
+        .table_one{
+            margin-top: 10px;
+            width: 100%;
+        }
+
+
+        .table_one tr td{
+            font-size: 14px;
+            text-align: left;
+            width: 25%;
+        }
+        .table_one tr td:nth-child(odd){
+            font-size: 14px;
+            text-align: left;
+            width: 13%!important;
+            padding: 4px;
+        }
+        .table_one tr td:nth-child(even){
+            font-size: 14px;
+            text-align: left;
+            width: 20%!important;
+            padding: 4px;
+        }
+        .table_info {
+            margin-top: 10px;
+        }
+        .table_info tr td{
+            font-size: 14px;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+        .table_info tr td h1,
+        .table_info tr td h2,
+        .table_info tr td h3,
+        .table_info tr td h4,
+        .table_info tr td h5,
+        .table_info tr td strong,
+        .table_info tr td p{
+            font-size: 14px !important;
+            margin: 2px auto;
+            line-height: 15px;
+        }
+
+        .table_info_last {
+            margin-top: 10px;
+        }
+        .table_info_last tr td{
+            font-size: 10px;
+            text-align: center;
+            letter-spacing: 0px;
+        }
+        .item_table tr td:last-child{
+            text-align: right;
+            padding-right: 5px;
+        }
+        .item_table tr td:first-child{
+            width: 5%;
+            padding-left: 5px;
+        }
+        .customer-info{
+            font-size: 14px;
+            margin: 5px;
+        }
+        .text-bold{
+            font-weight: bold;
+        }
+        .item_table tr td{
+            text-align: center;
+            border: 0.5px solid #949494;
+        }
+        .text-right{
+            text-align: right !important;
+        }
+        .new_title td{
+            font-size: 14px;
+            text-align: right!important;
+            color: #000;
+            padding-top: 5px;
+        }
+
+        .payment_table{
+            width: 60%!important;
+            text-align: center;
+            margin: 0 auto;
+        }
+        .payment_table tr td:first-child{
+            font-size: 14px;
+            text-align: left!important;
+            color: #000;
+            padding-top: 5px;
+
+        }
+
+        .payment_table tr td:last-child{
+            font-size: 14px;
+            text-align: right!important;
+            color: #000;
+            padding-top: 5px;
+
+        }
+    </style>
+
+
+</head>
+<body>
+<div id="invoice-POS">
+
+    <center id="top">
+        <h2 style=" font-size: 20px; margin: 10px auto!important">Sun Shine Company</h2>
+        <div class="info">
+            <table class="table_info">
+                <tr><td  colspan="3">villkhaowaznagar,Thana: Karnafully,District: Chittagong, chittagong, Bangladesh</td></tr>
+                <tr><td  colspan="3"> <h3><strong>Dealer: BSRM, RSRM &amp; SARM, Aramit Cement &amp; Ruby Cement</strong></h3>
+
+                    <p>Here you find all Rod, Tin &amp; Hardware</p> </td></tr>
+                <tr><td  colspan="3">Phone : 01819154276</td></tr>
+            </table>
+        </div>
+
+        <!--End Info-->
+    </center>
+    <!--End InvoiceTop-->
+
+
+    <div id="mid" >
+        <div class="info">
+            <table class="table_one">
+                <tr>
+                    <td ><b>Sale Code</b></td>
+                    <td colspan="3"><b>: SL20200825012319</b></td>
+                    <td ><b>Invoice No</b></td>
+                    <td >: INV-1448</td>
+                </tr>
+                <tr>
+                    <td>Memo No</td>
+                    <td>: 6998</td>
+                    <td>Chalan No</td>
+                    <td>: 6998</td>
+                    <td>Bill Date</td>
+                    <td>: 28-02-2020</td>
+                </tr>
+                <tr>
+                    <td>Vehicle Number</td>
+                    <td>: </td>
+                    <td>Time</td>
+                    <td>: 02:23:19 AM</td>
+                    <td> Creator Name</td>
+                    <td>: Abdullah</td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="border--left: 1px solid #d2d1d1; width: 40%; !important;"  >
+
+            <table class="customer-info">
+                <tr>
+                    <td colspan="2" class="text-left text-bold">Customer Info: </td>
+                </tr>
+                <tr >
+                    <td>Name: </td>
+                    <td> Jahed Iron Mart-Hathazari</td>
+                </tr>
+                <tr >
+                    <td>Address:</td>
+                    <td></td>
+                </tr>
+                <tr >
+                    <td>Phone:</td>
+                    <td>6110412</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!--End Invoice Mid-->
+
+    <div id="bot">
+
+        <div id="table">
+            <table class="item_table">
+                <tr class="tabletitle">
+                    <td class="item">
+                        SL
+                    </td>
+                    <td class="Hours">
+                        Description
+                    </td>
+                    <td class="Rate">
+                        Price
+                    </td>
+                    <td class="Rate">
+                        Qty
+                    </td>
+                    <td class="Rate"  style="text-align: right !important;">
+                        Amount<
+                    </td>
+
+                </tr>
+                <tr class="service">
+                    <td class="tableitem">
+                        <p class="itemtext">1</p>
+                    </td>
+                    <td class="tableitem">
+                        <p class="itemtext">Diamond Cement (North)</p>
+                    </td>
+                    <td class="tableitem">
+                        <p class="itemtext">404 </p>
+                    </td>
+                    <td class="tableitem">
+                        <p class="itemtext">460</p>
+                    </td>
+                    <td class="tableitem">
+                        <p class="itemtext">185,840.00</p>
+                    </td>
+                </tr>
+
+
+
+                <tr class="service">
+
+                    <td style="text-align: right;" colspan="4" class="tableitem">
+                        <p class="itemtext">Sub Total</p>
+                    </td>
+                    <td class="tableitem">
+                        <p class="itemtext">185,840.00</p>
+                    </td>
+                </tr>
+
+
+                <tr class="new_title">
+                    <td colspan="4"  >Discount (Fixed) :</td>
+                    <td class="text-right">(-) 0.00</td>
+                </tr>
+
+                <tr class="new_title">
+                    <td  colspan="4" >
+                        Net Amount
+                    </td>
+                    <td  >
+                        185,840.00
+                    </td>
+                </tr>
+                <tr class="new_title">
+                    <td colspan="4"  > Amount to Pay:</td>
+                    <td class="text-right">185,840.00</td>
+                </tr>
+                <tr class="new_title">
+                    <td  colspan="4" >
+                        Paid Amount
+                    </td>
+                    <td  >
+                        0.00
+                    </td>
+                </tr>
+                <tr class="new_title">
+                    <td colspan="4" >Due:</td>
+                    <td class="text-right"> 185,840.00</td>
+                </tr>
+
+
+            </table>
+
+            <div style="text-align: center;" class="pay_info">
+                <h5 style="margin: 10px auto !important;">  Payment Details</h5>
+                <table class="payment_table">
+                    <tr> <td>DESCRIPTION  </td><td>AMOUNT </td></tr>
+                    <tr> <td> Cash </td> <td> 0.00</td></tr>
+                </table>
+                <table class="table_info_last">
+                    <tr><td  >You earn by this bill:0.00 points</td></tr>
+                    <tr><td ><b>  Goods once sold can not be returned</b></td></tr>
+                    <tr><td style="font-size: 13px"> SL20200825012319 </td></tr>
+                    <tr><td  >Hisabe A software develop by R-Creation</td></tr>
+                    <tr><td  >Tel : +880-1813-316786,   +880-1722-964303</td></tr>
+                    <tr><td><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJEAAAAyAQMAAABmnqsgAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAACZJREFUKJFjuCS9yDz2zdzJi9V1zs7drZfSU9rAMCo2KjYqNqzEAPf411q89jhuAAAAAElFTkSuQmCC" alt="SL20200825012319"   /></td></tr>
+                    <tr><td style="font-size: 13px"><b> Thank You For Shopping With Us</b></td></tr>
+
+
+                </table>
+            </div>
+        </div>
+        <!--End Table-->
+
+
+    </div>
+    <!--End InvoiceBot-->
+</div>
+
+<!--End Invoice-->
+</body>
+</html>
+

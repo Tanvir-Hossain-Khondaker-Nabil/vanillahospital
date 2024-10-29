@@ -1,0 +1,63 @@
+$inputs['company_name'] = "Nokta";
+$inputs['phone'] = "+8801618544195";
+$inputs['address'] = "Rahamania Bhabon (1st Floor), Belayar khan Sawdagor Book Line, Miyakhan Nagor, South Bakkalia";
+$inputs['email'] = "alkawosar@gmail.com";
+$inputs['city'] = "Chattogram";
+$inputs['member_id'] = 1;
+$inputs['created_by'] = 1;
+$inputs['country_id'] = 19;
+$inputs['status'] = 'active';
+Company::create($inputs);
+
+--------------------------------------------------------------------------------
+
+$inputs['company_name'] = "Rupali Trading Agency";
+$inputs['phone'] = "+8801811000000";
+$inputs['address'] = "Muradpur";
+$inputs['email'] = "info@rupali_traders.com";
+$inputs['city'] = "Chattogram";
+$inputs['member_id'] = 1;
+$inputs['created_by'] = 1;
+$inputs['country_id'] = 19;
+$inputs['status'] = 'active';
+Company::create($inputs);
+
+--------------------------------------------------------------------------------
+
+$inputs['company_name'] = "Hisebi";
+$inputs['phone'] = "+880170000000";
+$inputs['address'] = "Muradpur";
+$inputs['email'] = "info@hisebi.com";
+$inputs['city'] = "Chattogram";
+$inputs['member_id'] = 1;
+$inputs['created_by'] = 1;
+$inputs['country_id'] = 19;
+$inputs['status'] = 'active';
+Company::create($inputs);
+
+--------------------------------------------------------------------------------
+
+$inputs['company_name'] = "Azim and Company";
+$inputs['phone'] = "+8801711-122721";
+$inputs['address'] = "370 Strand Road, Majhirghat";
+$inputs['email'] = "info@azimhakim.com";
+$inputs['city'] = "Chattogram";
+$inputs['member_id'] = 1;
+$inputs['created_by'] = 1;
+$inputs['country_id'] = 19;
+$inputs['status'] = 'active';
+Company::create($inputs);
+
+--------------------------------------------------------------------------------
+
+
+$inputs['company_name'] = "M/S. Almas Enterprise";
+$inputs['phone'] = "+8801865118802";
+$inputs['address'] = "NA";
+$inputs['email'] = "info@almastraders.com";
+$inputs['city'] = "Chattogram";
+$inputs['member_id'] = 1;
+$inputs['created_by'] = 1;
+$inputs['country_id'] = 19;
+$inputs['status'] = 'active';
+$inputs['report_head_sub_text'] = '<h3><strong>Dealer: Golden Ispat, BSRM, RSRM &amp; SARM, Bengle Cement, Aramit Cement &amp; Ruby Cement</strong></h3>\r\n\r\n<p>Wholesale and retailer of all rod cement, hardware, tin, grill angle, seat, plate bar, jed&nbsp;bar channel and welding rod and all grill items.</p>\r\n\r\n<p><strong>In front of Chandpur food warehouse, Chanpur Bazar, Bashkhali, Chattogram.</strong></p>\r\n\r\n<p><strong>Mobile No:&nbsp;+8801865118803,&nbsp;+8801865118804</strong></p>\r\n\r\n<p>&nbsp;</p>';

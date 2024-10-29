@@ -1,0 +1,656 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Mobarok Hossen
+ * Date: 4/27/2019
+ * Time: 3:54 PM
+ */
+?>
+
+
+@push('styles')
+    <style type="text/css">
+        .content {
+            font-size: 11px;
+        }
+
+        textarea.form-control {
+            height: 103px;
+        }
+
+        .head-trans div {
+            padding-left: 5px !important;
+        }
+    </style>
+    <link rel="stylesheet"
+        href="{{ asset('public/adminLTE/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/adminLTE/bower_components/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/adminLTE/plugins/iCheck/all.css') }}">
+@endpush
+
+<div class="box">
+    <div class="box-body">
+        <div class="col-md-2 px-1">
+            <label for="suppliers"> {{__('common.date')}} </label>
+            {!! Form::text('date', null, ['id' => 'date', 'class' => 'form-control', 'required']) !!}
+        </div>
+        <div class="col-md-4 px-1">
+            <label for="supplier_id"> {{__('common.supplier_name')}} </label>
+            {!! Form::select('supplier_id', $suppliers, null, [
+                'id' => 'supplier_id',
+                'class' => 'form-control select2',
+                'required',
+                'placeholder' => trans('common.select_supplier_name'),
+            ]) !!}
+            <div id="current-balance"> </div>
+        </div>
+        <div class="col-md-2 px-1">
+            <label for="memo_no"> {{__('common.memo_chalan_no')}}</label>
+            {!! Form::text('memo_no', $memo_no, ['class' => 'form-control', 'required', 'readonly']) !!}
+        </div>
+
+        <div class="col-md-2 px-1">
+            <label for="invoice_no"> {{__('common.invoice_no')}} </label>
+            {!! Form::text('invoice_no', null, ['class' => 'form-control']) !!}
+        </div>
+        <div class="col-md-2 px-1">
+            <label for="avg_purchase_price"> {{__('common.avg_purchase_price')}} </label>
+            {!! Form::text('avg_purchase_price', null, [
+                'id' => 'avg_purchase_qty',
+                'class' => 'form-control',
+                'step' => 'any',
+                'readonly',
+            ]) !!}
+        </div>
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-body purchase-box">
+
+        <div class="col-md-3">
+            <label for="product_id">{{__('common.item_name')}} </label>
+            {!! Form::select('product_id[]', $products, null, [
+                'id' => 'product_id_0',
+                'data-option' => '0',
+                'class' => 'form-control select2 item-name',
+                'required',
+                'placeholder' => trans('common.select_item_name'),
+            ]) !!}
+        </div>
+
+        <div class="col-md-1">
+            <label for="amount"> {{__('common.unit')}} </label>
+            {!! Form::text('unit[]', null, ['id' => 'unit_0', 'class' => 'form-control', 'disabled']) !!}
+        </div>
+        <div class="col-md-2">
+            <label for="amount"> {{__('common.last_purchase_qty')}} </label>
+            {!! Form::number('last_purchase_qty[]', null, [
+                'id' => 'last_purchase_qty_0',
+                'class' => 'form-control',
+                'readonly',
+            ]) !!}
+        </div>
+        <div class="col-md-1">
+            <label for="amount"> {{__('common.available_stock')}} </label>
+            {!! Form::number('available_stock[]', null, ['id' => 'stock_0', 'class' => 'form-control', 'readonly']) !!}
+        </div>
+        {{--        <div class="col-md-1"> --}}
+        {{--            <label for="amount"> Sales Price </label> --}}
+        {{--            {!! Form::number('sales_price[]',null,['id'=>'sales_price_0','class'=>'form-control', 'readonly']); !!} --}}
+        {{--        </div> --}}
+        <div class="col-md-1">
+            <label for="amount"> {{__('common.qty')}} </label>
+            {!! Form::number('qty[]', null, ['id' => 'qty_0', 'class' => 'form-control qty input-number', 'required', 'step' => 'any']) !!}
+        </div>
+        <div class="col-md-2">
+            <label for="amount"> {{__('common.price_per_qty')}} </label>
+            {!! Form::number('price[]', null, [
+                'id' => 'price_0',
+                'class' => 'form-control input-number price',
+                'placeholder' => trans('common.price'),
+                'step' => 'any',
+                'required',
+            ]) !!}
+        </div>
+        <div class="col-md-2">
+            <label for="amount"> {{__('common.total_price')}} </label>
+            {!! Form::number('total_price[]', null, [
+                'id' => 'total_price_0',
+                'class' => 'form-control input-number total_price',
+                'placeholder' => trans('common.total_price'),
+                'step' => 'any',
+                'required',
+                'readonly',
+            ]) !!}
+        </div>
+        <div class="col-md-1">
+            <label for="description">{{__('common.description')}} </label>
+            {!! Form::text('description[]', null, [
+                'id' => 'description',
+                'class' => 'form-control',
+                'placeholder' => trans('common.enter_description'),
+                'height' => '70px !important',
+            ]) !!}
+        </div>
+        <div class="col-md-1">
+            <a class="btn btn-success add-row pull-right margin-top-3 margin-top-23" href="#"><i
+                    class="fa fa-plus-circle"></i> </a>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="">
+        <div class="col-md-4 pl-0">
+            <div class="form-group">
+                <label for="notation">{{__('common.notation')}} </label>
+                {!! Form::textarea('notation', null, [
+                    'id' => 'notation',
+                    'class' => 'form-control',
+                    'placeholder' => trans('common.enter_notation'),
+                    'height' => '70px !important',
+                ]) !!}
+            </div>
+            <div class="form-group">
+                <label for="product_id">{{__('common.cash_or_bank_account')}} </label>
+                {!! Form::select('cash_or_bank_id', $banks, config('settings.cash_bank_id'), [
+                    'class' => 'form-control select2 ',
+                    'required',
+                    'placeholder' => trans('common.select_account_name'),
+                ]) !!}
+            </div>
+            <div class="form-group">
+                <label for="payment_method_id"> {{__('common.payment_method')}} </label>
+                {!! Form::select('payment_method_id', $payment_methods, null, ['class' => 'form-control select2 ', 'required']) !!}
+            </div>
+            <div class="form-group">
+                <label for="amount">{{__('common.transport_vehicle_number')}} </label>
+                {!! Form::text('vehicle_number', null, [
+                    'id' => 'vehicle_number',
+                    'class' => 'form-control ',
+                    'placeholder' => trans('common.enter_transport_vehicle_number'),
+                ]) !!}
+            </div>
+            <div class="form-group">
+                <label for=file> {{__('common.attach_if_file_available')}}</label>
+                {{-- <input  name="file" type="file" accept="image/*"/> --}}
+                <input type="file" id='' class="form-control" accept="image/*" name="file"
+                    placeholder="Import image" onchange="getImagePreview(this)">
+                <input type="hidden" id="front-image-url" value="">
+                <div class="py-1" id="front-image-preview" style="display: flex; gap: 10px;flex-wrap: wrap">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label> {{__('common.payment_option')}}</label> <br />
+                <label>
+                    <input type="checkbox" id="payment_option" name="payment_option">
+                    {{__('common.due_credit')}}
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="amount"> {{__('common.total_bill')}} </label>
+                {!! Form::number('total_bill', 0, [
+                    'id' => 'total_bill',
+                    'class' => 'form-control input-number',
+                    'placeholder' => trans('common.enter_price'),
+                    'step' => 'any',
+                    'required',
+                    'readonly',
+                ]) !!}
+            </div>
+            <div class="form-group">
+                <label for="due_advance" id="due_advance"> {{__('common.due_advance')}} </label>
+                {!! Form::number('due', 0, [
+                    'id' => 'total_due_adv',
+                    'class' => 'form-control input-number',
+                    'placeholder' => trans('common.enter_price'),
+                    'step' => 'any',
+                    'required',
+                    'readonly',
+                ]) !!}
+            </div>
+            <div class="form-group">
+                <label for="amount"> {{__('common.discount_type')}}</label>
+                {!! Form::select('discount_type', ['Fixed' => 'Fixed', 'Percentage' => 'Percentage'], null, [
+                    'id' => 'discount_type',
+                    'class' => 'form-control',
+                ]) !!}
+            </div>
+            <div class="form-group">
+                <label for="amount"> {{__('common.discount')}} </label>
+                {!! Form::number('discount', 0, ['id' => 'discount', 'class' => 'form-control input-number']) !!}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="transport_cost"> {{__('common.transport_cost')}} </label>
+                {!! Form::number('transport_cost', 0, [
+                    'id' => 'transport_cost',
+                    'class' => 'form-control input-number',
+                    'placeholder' => trans('common.enter_amount'),
+                    'step' => 'any',
+                    'required',
+                ]) !!}
+            </div>
+            <div class="form-group">
+                <label for="unload_cost"> {{__('common.unload_cost')}}</label>
+                {!! Form::number('unload_cost', 0, [
+                    'id' => 'unload_cost',
+                    'class' => 'form-control input-number',
+                    'placeholder' => trans('common.enter_amount'),
+                    'step' => 'any',
+                    'required',
+                ]) !!}
+            </div>
+            <div class="form-group">
+                <label for="unload_cost"> {{__('common.bank_charge')}}</label>
+                {!! Form::number('bank_charge', 0, [
+                    'id' => 'bank_charge',
+                    'class' => 'form-control input-number',
+                    'placeholder' => trans('common.enter_amount'),
+                    'step' => 'any',
+                    'required',
+                ]) !!}
+            </div>
+            <div class="form-group">
+                <label for="amount"> {{__('common.total_amount')}}</label>
+                {!! Form::number('total_amount', 0, [
+                    'id' => 'total_amount',
+                    'class' => 'form-control input-number',
+                    'placeholder' => trans('common.enter_price'),
+                    'step' => 'any',
+                    'required',
+                    'readonly',
+                ]) !!}
+            </div>
+            <div class="form-group">
+                <label for="amount"> {{__('common.amount_to_pay')}} </label>
+                {!! Form::number('amount_to_pay', 0, [
+                    'id' => 'amount_to_pay',
+                    'class' => 'form-control input-number',
+                    'placeholder' => trans('common.enter_price'),
+                    'step' => 'any',
+                    'required',
+                    'readonly',
+                ]) !!}
+            </div>
+            <div class="form-group">
+                <label for="amount"> {{__('common.paid_price')}}</label>
+                {!! Form::number('paid_amount', 0, [
+                    'id' => 'paid_amount',
+                    'class' => 'form-control input-number',
+                    'placeholder' => trans('common.enter_price'),
+                    'step' => 'any',
+                    'required',
+                ]) !!}
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@push('scripts')
+    <!-- Date range picker -->
+    <script src="{{ asset('public/adminLTE/bower_components/moment/min/moment.min.js') }}"></script>
+    <!-- Select2 -->
+    <script src="{{ asset('public/adminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('public/adminLTE/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
+    <!-- CK Editor -->
+    <script src="{{ asset('public/adminLTE/bower_components/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('public/adminLTE/plugins/iCheck/icheck.min.js') }}"></script>
+
+
+    <!-- Date range picker -->
+    <script type="text/javascript">
+        // var date = new Date();
+        $(function() {
+            $('#date').datepicker({
+                "setDate": new Date(),
+                "format": 'mm/dd/yyyy',
+                "endDate": "+0d",
+                "todayHighlight": true,
+                "autoclose": true
+            });
+            var today = moment().format('MM\DD\YYYY');
+            $('#date').datepicker('setDate', today);
+            $('#date').datepicker('update');
+            $('.date').datepicker('setDate', today);
+
+            $('.select2').select2();
+
+            var products = [];
+            products = <?php print_r(json_encode($products)); ?>;
+
+            var i = 1;
+            $(document).on('click', '.add-row', function() {
+                var optionName = '';
+                var $div = $(this).parent().parent('.box-body').parent('.box');
+                var childrenDiv = $div.children();
+
+                if ($div.find('div :first-child').find('select').val() == "" || $div.find(
+                        'div :nth-child(5)').find('input').val() == "" || $div.find('div :nth-child(6)')
+                    .find('input').val() == "") {
+                    bootbox.alert("{{__('common.please_select_item_name_or_input_value_qyt_price')}}");
+                    return false;
+                }
+
+                var itemId = $div.find('div :first-child').find('select').val();
+                delete products[itemId];
+
+                optionName = '<option selected="selected" value="">Select Item Name</option>';
+                $.each(products, function(key, value) {
+                    optionName = optionName + '<option value="' + key + '" >' + value + '</option>';
+                });
+
+                var html = '<div class="box-body purchase-box ">' +
+                    '<div class="col-md-3">' +
+                    '<select id="product_id_' + i + '" data-option="' + i +
+                    '" class="form-control select2 item-name"  name="product_id[]">' + optionName +
+                    '</select>' +
+                    '</div> ' +
+                    '<div class="col-md-1">' +
+                    '<input id="unit_' + i +
+                    '" disabled  min="0" class="form-control" name="unit[]" type="text">' +
+                    '</div>' +
+                    '<div class="col-md-2">' +
+                    '<input id="last_purchase_qty_' + i +
+                    '" readonly class="form-control" name="last_purchase_qty[]" type="number">' +
+                    '</div>' +
+                    '<div class="col-md-1">' +
+                    '<input id="stock_' + i +
+                    '" readonly class="form-control" name="available_stock[]" type="number">' +
+                    '</div>' +
+                    // '<div class="col-md-1">' +
+                    // '<input id="sales_price_'+i+'" readonly class="form-control" name="sales_price[]" type="number">'+
+                    // '</div>' +
+                    '<div class="col-md-1">' +
+                    '<input id="qty_' + i +
+                    '" class="form-control qty" min="0" name="qty[]" type="number">' +
+                    '</div>' +
+                    '<div class="col-md-1">' +
+                    '<input placeholder="{{__("common.price")}}"  min="0"  id="price_' + i + '" data-option="' + i +
+                    '" class="form-control price input-number" step="any" name="price[]"  type="number"/>' +
+                    '</div>' +
+                    '<div class="col-md-1">' +
+                    '<input placeholder="{{__("common.total_price")}}" min="0"  id="price_' + i + '" data-option="' + i +
+                    '" class="form-control input-number total_price" step="any" name="total_price[]"  type="number"/>' +
+                    '</div>' +
+                    '<div class="col-md-1">' +
+                    '{!! Form::text('description[]', null, [
+                        'id' => 'description',
+                        'class' => 'form-control',
+                        'placeholder' => trans('common.enter_description'),
+                        'height' => '70px !important',
+                    ]) !!}' +
+                    '</div>' +
+                    '<div class="col-md-1"> <a class="btn btn-success add-row pull-right margin-top-3" href="#" ><i class="fa fa-plus-circle"></i> </a>' +
+                    '</div>' +
+                    '</div>';
+
+                i++;
+
+                $(this).parent().css("padding-top", '30px');
+                childrenDiv.find('input').attr('readonly', true);
+                childrenDiv.find('input').attr('required', true);
+                childrenDiv.find('div:nth-child(8)').find('input').attr('required', false);
+                childrenDiv.find('select').attr('readonly', true);
+                childrenDiv.find('select').attr('required', true);
+                var actionHtml =
+                    '<a href="#" class="btn-text-info margin-top-3 edit-button"><i class="fa fa-pencil"></i></a><a href="#" class="btn-text-danger margin-top-23 delete-field"><i class="fa fa-close"></i></a></span>';
+                $(this).parent('div').html(actionHtml);
+
+                $('input[type=number]').attr('min', 0);
+                $div.append(html);
+                $('.select2').select2();
+                mouseWheelOff();
+            });
+
+            $(document).on('click', '.edit-button', function() {
+                var $mainDiv = $(this).parent().parent().parent('.box').children();
+                $mainDiv.find('input').attr('readonly', true);
+                $mainDiv.find('select').attr('readonly', true);
+
+                var $div = $(this).parent().parent('.box-body');
+                var childrenDiv = $div.children();
+                childrenDiv.find('input').attr('readonly', false);
+                childrenDiv.find('select').attr('readonly', false);
+                $(this).parent().css("padding-top", '20px');
+                var actionHtml =
+                    '<a class="btn btn-warning pull-right margin-top-3" id="edit-complete" href="#" ><i class="fa fa-check-circle"></i> </a>';
+                $(this).parent('div').html(actionHtml);
+            });
+
+            $(document).on('click', '.delete-field', function(e) {
+                e.preventDefault();
+
+                var $div = $(this).parent().parent('.box-body');
+                $div.remove();
+
+                total_price_calculate();
+            });
+
+            $(document).on('click', '#edit-complete', function() {
+
+                var $div = $(this).parent().parent('.box-body');
+                var childrenDiv = $div.children();
+                $(this).parent().css("padding-top", '30px');
+                childrenDiv.find('input').attr('readonly', true);
+                childrenDiv.find('select').attr('readonly', true);
+                var $mainDiv = $(this).parent().parent().parent('.box').children();
+                $mainDiv.last().find('input').attr('readonly', false);
+                $mainDiv.last().find('select').attr('readonly', false);
+                var actionHtml =
+                    '<a href="#" class=" btn-text-info margin-top-23 edit-button"><i class="fa fa-pencil"></i></a><a href="#" class="btn-text-danger margin-top-23 delete-field"><i class="fa fa-close"></i></a>';
+                $(this).parent('div').html(actionHtml);
+
+                var $lastDiv = $('.main-box').children('.box-body').last();
+
+                // console.log($mainDiv);
+                $lastDiv.find('input').attr('readonly', false);
+                $lastDiv.find('select').attr('readonly', false);
+            });
+
+            var target = '';
+
+            $(document).on('keyup', '.qty, .price', function(e) {
+                e.preventDefault();
+
+                total_price_calculate();
+            });
+
+            $(document).on('keyup', '#transport_cost, #unload_cost, #discount, #paid_amount, #bank_charge',
+                function(e) {
+                    e.preventDefault();
+
+                    total_price_calculate();
+                });
+
+            $(document).on('change', '#discount_type', function(e) {
+                e.preventDefault();
+
+                total_price_calculate();
+            });
+
+            function price_calculate() {
+                var total_bill = 0;
+                for (var i = 1; i <= $('.purchase-box').length; i++) {
+                    var qty = $('.purchase-box:nth-child(' + i + ') div:nth-child(5) input').val();
+                    // var total_price = $('.purchase-box:nth-child(' + i + ') div:nth-child(8) input').val();
+
+                    var price = $('.purchase-box:nth-child(' + i + ') div:nth-child(6) input').val();
+                    price = price == undefined || price == "" ? 0 : parseFloat(price);
+                    var total_price = parseFloat(qty * price);
+
+                    // qty =  qty == undefined || qty == "" ? 0 : parseInt(qty);
+                    // total_price =  total_price == undefined || total_price == "" ? 0 : parseFloat(total_price);
+                    // var price = parseFloat(total_price/qty).toFixed(2);
+
+                    total_bill = total_bill + total_price;
+                    // $('.purchase-box:nth-child(' + i + ') div:nth-child(7) input').val(price);
+                    $('.purchase-box:nth-child(' + i + ') div:nth-child(7) input').val(total_price);
+                }
+                $('#total_bill').val(total_bill);
+            }
+
+
+            function total_price_calculate() {
+
+                price_calculate();
+
+                var total_bill = $('#total_bill').val();
+                var total_amount = $('#total_amount').val();
+                var unload_cost = $('#unload_cost').val();
+                var transport_cost = $('#transport_cost').val();
+                var discount_type = $('#discount_type').val();
+                var bank_charge = $('#bank_charge').val();
+                var discount = $('#discount').val();
+                var discount_amount = 0;
+                discount = parseFloat(discount);
+
+                var paid_amount = $('#paid_amount').val();
+
+                unload_cost = unload_cost == '' ? 0 : unload_cost;
+                transport_cost = transport_cost == '' ? 0 : transport_cost;
+                paid_amount = paid_amount == '' ? 0 : paid_amount;
+                bank_charge = bank_charge == '' ? 0 : bank_charge;
+
+                total_bill = parseFloat(total_bill);
+                unload_cost = parseFloat(unload_cost);
+                transport_cost = parseFloat(transport_cost);
+                bank_charge = parseFloat(bank_charge);
+                paid_amount = parseFloat(paid_amount);
+                discount_amount = parseFloat(discount_amount);
+
+                var total_amount = total_bill + unload_cost + transport_cost + bank_charge;
+
+                if (discount_type == "Fixed")
+                    discount_amount = discount;
+                else
+                    discount_amount = total_bill * discount / 100;
+
+                var amount_to_pay = total_amount - discount_amount;
+                var last_amount = amount_to_pay - paid_amount;
+
+                $('#total_amount').val(total_amount);
+                $('#amount_to_pay').val(amount_to_pay);
+
+                $('#total_due_adv').val(last_amount);
+                if (last_amount < 0) {
+                    $('#due_advance').text('{{__("common.advance")}}');
+                    $('#due_advance').css('color', 'green');
+                } else {
+                    $('#due_advance').text('{{__("common.due")}}');
+                    $('#due_advance').css('color', 'red');
+                }
+            }
+
+            $(document).on('click', '.btn-at', function() {
+                var $el = $(this);
+                target = $el.data('option');
+            });
+
+            var url = "{{ route('search.item_details') }}";
+            $(document).on('change', '.item-name', function(e) {
+                e.preventDefault();
+
+                var itemId = $(this).val();
+                var supplier_id = $('#supplier_id').val();
+                var id = $(this).data('option');
+
+                if (supplier_id == '') {
+                    $(this).val('');
+                    $('.select2').select2();
+                    bootbox.alert("{{__('common.please_select_supplier_name')}}");
+                    return false;
+                }
+
+                var form_data = {
+                    '_token': "{{ csrf_token() }}",
+                    'item_id': itemId,
+                    'supplier_id': supplier_id
+                };
+
+                $.ajax({
+                        type: 'POST',
+                        url: url, // the url where we want to POST
+                        data: form_data,
+                        dataType: 'json',
+                        encode: true
+                    })
+                    // using the done promise callback
+                    .done(function(data) {
+
+                        if (data.status == "success") {
+                            // console.log(data);
+                            // $('#sales_price_'+id).val(data.price);
+                            $('#stock_' + id).val(data.stock);
+                            $('#unit_' + id).val(data.unit);
+                            $('#last_purchase_qty_' + id).val(data.supplier_purchases ? data
+                                .supplier_purchases.qty : 0);
+                        } else {
+                            //                        console.log(data);
+                            bootbox.alert("No data Found!! ");
+                        }
+                    });
+            });
+
+            $("#supplier_id").change(function(e) {
+                e.preventDefault();
+                var url = "{{ route('search.supplier_info') }}";
+                var supplier_id = $(this).val();
+
+                var form_data = {
+                    '_token': "{{ csrf_token() }}",
+                    'supplier_id': supplier_id
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: url, // the url where we want to POST
+                    data: form_data,
+                    dataType: 'json',
+                    encode: true
+                }).done(function(data) {
+
+                    if (data.status == "success") {
+
+                        var html = "<b> {{__('common.current_balance')}}: " + data.supplier
+                            .supplier_current_balance + "</b><br/>";
+                        html += "<b> {{(__('common.last_purchase_amount'))}}: " + (data.last_purchase_amount == null ?
+                            0 : data.last_purchase_amount.total_amount) + "</b>";
+                        $('#current-balance').html(html);
+                    } else {
+                        //                        console.log(data);
+                        bootbox.alert("{{__('common.no_data_found')}} ");
+                    }
+                });
+
+
+            });
+
+            //Flat red color scheme for iCheck
+            $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+                checkboxClass: 'icheckbox_flat-green',
+                radioClass: 'iradio_flat-green'
+            });
+
+            $("#payment_option").change(function() {
+
+                if (this.checked) {
+                    $('#discount_type').attr('readonly', true);
+                    $('#paid_amount').attr('readonly', true);
+                    $('#paid_amount').val(0);
+                    $('#discount').attr('readonly', true);
+                } else {
+                    $('#discount_type').attr('readonly', false);
+                    $('#paid_amount').attr('readonly', false);
+                    $('#discount').attr('readonly', false);
+                }
+
+            });
+
+        });
+    </script>
+@endpush
